@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "helm-chart-nodejs.name" -}}
+{{- define "helm-chart-node.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "helm-chart-nodejs.fullname" -}}
+{{- define "helm-chart-node.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "helm-chart-nodejs.chart" -}}
+{{- define "helm-chart-node.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "helm-chart-nodejs.labels" -}}
-helm.sh/chart: {{ include "helm-chart-nodejs.chart" . }}
-{{ include "helm-chart-nodejs.selectorLabels" . }}
+{{- define "helm-chart-node.labels" -}}
+helm.sh/chart: {{ include "helm-chart-node.chart" . }}
+{{ include "helm-chart-node.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "helm-chart-nodejs.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "helm-chart-nodejs.name" . }}
+{{- define "helm-chart-node.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "helm-chart-node.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "helm-chart-nodejs.serviceAccountName" -}}
+{{- define "helm-chart-node.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "helm-chart-nodejs.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "helm-chart-node.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
